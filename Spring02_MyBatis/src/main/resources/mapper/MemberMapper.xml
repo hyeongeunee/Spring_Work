@@ -2,16 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+    <select id="getData" resultType="com.gura.spring.member.dto.MemberDto" parameterType="int">
+        SELECT NUM, NAME, ADDR
+        FROM MEMBER
+        WHERE NUM = #{num}
+    </select>
 
-    <select id="getList" resultType="com.gura.spring.member.dto.MemberDto">
-        select num,name, addr
-        from member
-        order by num asc
+    <update id="update" parameterType="com.gura.spring.member.dto.MemberDto">
+        UPDATE MEMBER
+        SET NAME = #{name},
+            ADDR = #{addr}
+        WHERE NUM = #{num}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE
+        FROM MEMBER
+        WHERE NUM = #{num}
+    </delete>
+
+    <select id="getList"
+            resultType="com.gura.spring.member.dto.MemberDto"> -- select 된 row 하나를 어떤 type 에 담을지 결정하는 것이 resultType 이다.
+        SELECT NUM, NAME, ADDR
+        FROM MEMBER
+        ORDER BY NUM ASC
     </select>
 
     <insert id="insert" parameterType="com.gura.spring.member.dto.MemberDto">
-        insert into member
-        (num, name, addr)
-        values (member_seq.nextval, #{name}, #{addr})
+        INSERT INTO MEMBER
+            (NUM, NAME, ADDR)
+        VALUES (MEMBER_SEQ.NEXTVAL, #{name}, #{addr})
     </insert>
 </mapper>

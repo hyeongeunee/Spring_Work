@@ -28,6 +28,7 @@
         <li><a href="${pageContext.request.contextPath}/test/json4">JSON 응답받기 4</a></li>
         <li><a href="${pageContext.request.contextPath}/test/json5">JSON 응답받기 5</a></li>
         <li><a href="test/json6">JSON 응답받기 6</a></li>
+        <li><a href="test/friend"></a></li>
     </ul>
     <h2>공지사항</h2>
     <ul>

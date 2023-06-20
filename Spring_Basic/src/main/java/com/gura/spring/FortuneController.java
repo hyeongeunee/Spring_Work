@@ -27,7 +27,7 @@ public class FortuneController {
         // view page 에 전달할 내용을 담는다
         mView.addObject("fortuneToday", fortuneToday);
         // view page 의 위치도 담는다.
-        mView.setViewName("fortune");
+        mView.setViewName("/test/ft");
         //모델과 view page 정보가 모두 담겨 있는 ModelAndView 객체를 리턴해주면 똑같이 작동한다.
         return mView;
     }

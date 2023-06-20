@@ -21,6 +21,8 @@
                     <th>번호</th>
                     <th>이름</th>
                     <th>주소</th>
+                    <th>삭제</th>
+                    <th>수정</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +31,9 @@
                         <td>${tmp.num}</td>
                         <td>${tmp.name}</td>
                         <td>${tmp.addr}</td>
+                        <td><a href="delete?num=${tmp.num}">삭제</a></td>
+                        <%-- <td><a href="/member/delete/${tmp.num}">삭제</a></td> --%>
+                        <td><a href="updateform?num=${tmp.num}">수정</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

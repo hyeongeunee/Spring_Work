@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//component scan 시 bean 이 되기 위해
+// component scan 시 bean 이 되기 위해
 @Repository
-public class MemberDaoImpl implements MemberDao{
-    //Dao 는 Repository 어노테이션을 주로 붙임
-    //MyBatis 를 사용하기 위한 핵심 의존객체 주입 받기
+public class MemberDaoImpl implements MemberDao {
+    // Dao 는 Repository 어노테이션을 주로 붙임
+    // MyBatis 를 사용하기 위한 핵심 의존객체 주입 받기
     @Autowired
     private SqlSession session;
 
@@ -22,23 +22,23 @@ public class MemberDaoImpl implements MemberDao{
 
     @Override
     public void update(MemberDto dto) {
-
+        session.update("member.update", dto);
     }
 
     @Override
     public void delete(int num) {
-
+        session.delete("member.delete", num);
     }
 
     @Override
     public MemberDto getData(int num) {
-        return null;
+        return session.selectOne("member.getData", num);
     }
 
     @Override
     public List<MemberDto> getList() {
         List<MemberDto> list = session.selectList("member.getList");
-        //리턴해주기
+        // 리턴해주기
         return list;
     }
 }
