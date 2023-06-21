@@ -33,10 +33,6 @@
               maxWaitMillis="-1"/>
     -->
 
-    <!--    <beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-    <!--        <beans:property name="jndiName" value="java:comp/env/jdbc/myoracle" />-->
-    <!--    </beans:bean>-->
-
     <beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <beans:property name="jndiName" value="java:comp/env/jdbc/myoracle"/>
         <beans:property name="lookupOnStartup" value="false"/>
