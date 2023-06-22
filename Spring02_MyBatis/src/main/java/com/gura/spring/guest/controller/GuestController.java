@@ -19,23 +19,24 @@ public class GuestController {
     private GuestService service;
 
     @RequestMapping(method = RequestMethod.POST, value = "/guest/insert")
-    public String insert(GuestDto dto){
+    public String insert(GuestDto dto) {
         service.addGuest(dto);
         return "guest/insert";
     }
 
     @RequestMapping("/guest/insertform")
-    public String insertform(){
+    public String insertform() {
         return "guest/insertform";
     }
 
     @RequestMapping("/guest/list")
-    public ModelAndView list(ModelAndView mView){
-        //방명록 목록 얻어오기
-        List<GuestDto> list = service.getGuestList(mView);
-        //ModelAndView 객체에 담고
-        mView.addObject("list", list);
-        //view page 정보 담기
+    public ModelAndView list(ModelAndView mView) {
+        // 방명록 목록 얻어오기
+        // 서비스의 메소드를 호출해서 ModelAndView 객체의 참조값을 전달하면 방명록 목록이 담긴다.
+        service.getGuestList(mView);
+        // ModelAndView 객체에 담고
+        // mView.addObject("list", list);
+        // view page 정보 담기
         mView.setViewName("guest/list");
         /*
             두 개의 정보가 모두 담긴 ModelAndView 객체를 리턴해주면
@@ -54,19 +55,19 @@ public class GuestController {
     }
 
     @RequestMapping("/guest/updateform")
-    public ModelAndView updateform(ModelAndView mView, int num){
-        //수정할 글 정보를 얻어와서
-        //서비스를 이용해서 ModelAndView 객체에 글 하나의 정보를 담아온다.
+    public ModelAndView updateform(ModelAndView mView, int num) {
+        // 수정할 글 정보를 얻어와서
+        // 서비스를 이용해서 ModelAndView 객체에 글 하나의 정보를 담아온다.
         service.getGuestInfo(mView, num);
-        //ModelAndView 객체에 담고
-        //view page 로 forward 이동해서 수정폼 응답하기
+        // ModelAndView 객체에 담고
+        // view page 로 forward 이동해서 수정폼 응답하기
         mView.setViewName("guest/updateform");
         return mView;
     }
 
     @RequestMapping(value = "/guest/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute(value = "dto") GuestDto dto){
-        service.addGuest(dto);
+    public String update(@ModelAttribute(value = "dto") GuestDto dto) {
+        service.updateGuest(dto);
         return "guest/update";
     }
 

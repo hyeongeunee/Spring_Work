@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    <mvc:default-servlet-hand/>-->
+    <context:component-scan base-package="com.gura.spring" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <beans:property name="jndiName" value="java:comp/env/jdbc/myoracle"/>
+        <beans:property name="lookupOnStartup" value="false"/>
+        <beans:property name="proxyInterface" value="javax.sql.DataSource"/>
+    </beans:bean>
+
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    <mvc:resources location="/resources/" mapping="/resources/**"/>
+
+    <beans:bean id="sessionFactory"
+                class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="configLocation" value="classpath:Configuration.xml"/>
+    </beans:bean>
+
+    <beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <beans:constructor-arg name="sqlSessionFactory"
+                               ref="sessionFactory"/>
+    </beans:bean>
+
+    <!-- myInterceptor = new MyInterceptor() -->
+    <!-- MyInterceptor 가 bean 이 되도록 한다. -->
+    <beans:bean id="myInterceptor" class="com.gura.spring.interceptor.MyInterceptor"/>
+    <beans:bean id="loginInterceptor" class="com.gura.spring.interceptor.LoginInterceptor"/>
+    <beans:bean id="fileInterceptor" class="com.gura.spring.interceptor.FileInterceptor"/>
+    <!-- 인터셉터 목록 등록 -->
+    <mvc:interceptors>
+        <!-- myInterceptor 가 /play 요청에 대해 끼어들도록 설정한다. -->
+        <mvc:interceptor>
+            <mvc:mapping path="/play"/>
+            <beans:ref bean="myInterceptor"/>
+        </mvc:interceptor>
+        <!--
+            /users/하위의 모든 요청에 대해 loginInterceptor 가 끼어들도록 설정한다.
+            단, /users/loginform, /users/login 요청은 exclude(제외) 한다.
+        -->
+        <mvc:interceptor>
+            <mvc:mapping path="/users/*"/>
+            <mvc:exclude-mapping path="/users/loginform"/>
+            <mvc:exclude-mapping path="/users/login"/>
+            <beans:ref bean="loginInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/file/*"/>
+            <beans:ref bean="fileInterceptor"/>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
+    <!--
+        Multipart 폼 전송 처리를 위한 bean 설정
+        최대 업로드 사이즈 제한하기
+        name = "maxUploadSize" value = "byte 단위"
+
+        주의 !
+        id 를 반드시 multipartResolver 로 명시를 해놔야 한다.
+     -->
+    <beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+        <beans:property name="maxUploadSize" value="102400000"/>
+        <beans:property name="defaultEncoding" value="UTF-8"/>
+    </beans:bean>
+
+    <context:component-scan base-package="com.gura.spring"/>
+    <mvc:annotation-driven/>
+</beans:beans>
