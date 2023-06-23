@@ -1,12 +1,16 @@
 package com.gura.spring.file.controller;
 
+import com.gura.spring.file.dto.FileDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  *   [ spring mvc 파일 업로드 처리 ]
@@ -18,11 +22,42 @@ import java.io.File;
  */
 @Controller
 public class FileController {
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST, value = "/image/upload")
+    public Map<String, Object> imageUpload(MultipartFile image, HttpServletRequest request) {
+        String orgFileName = image.getOriginalFilename();
+        // String realPath = request.getServletContext().getRealPath("/resources/upload");
+        String realPath = "C:/acorn202304/spring_work/Spring03_Interceptor/target/Spring03_Interceptor/resources/upload";
+        String filePath = realPath + File.separator;
+        File upload = new File(filePath);
+        if (!upload.exists()) {// 만일 디렉토리가 존재하지 않으면
+            upload.mkdir(); // 만들어 준다.
+        }
+        // 저장할 파일 명을 구성한다.
+        String saveFileName =
+            System.currentTimeMillis() + orgFileName;
+        try {
+            // 3. 임시 폴더에 저장된 업로드된 파일을 원하는곳에 원하는 이름으로 이동시키기(전송하기)
+            image.transferTo(new File(filePath + saveFileName));
+            System.out.println(filePath + saveFileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Map 객체에
+        Map<String, Object> map=new HashMap<>();
+        // "imagePath" 라는 키값으로 업로드된 이미지를 요청할수 있는 경로를 담아서
+        map.put("imagePath", "/resources/upload/"+saveFileName);
+        // 리턴해주면   {"imagePath":"xxx"} 형식의 json 문자열이 응답된다.
+        System.out.println("controller :" + map);
+        return map;
+    }
+
     /*
      *  [ 파일 업로드 요청 처리 ]
      *  title 이라는 파라미터 명으로 제목(파일의 설명)
      *  myFile 이라는 파라미터 명으로 첨부파일이 전송된다.
      */
+
     @RequestMapping(method = RequestMethod.POST, value = "/file/upload")
     public String upload(String title, MultipartFile myFile, HttpServletRequest request) {
         /*
@@ -40,6 +75,38 @@ public class FileController {
 
         // webapp/resources/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
         String realPath = request.getServletContext().getRealPath("/resources/upload");
+        // 저장할 파일의 상세 경로
+        String filePath = realPath + File.separator;
+        // 디렉토리를 만들 파일 객체 생성
+        File upload = new File(filePath);
+        if (!upload.exists()) {// 만일 디렉토리가 존재하지 않으면
+            upload.mkdir(); // 만들어 준다.
+        }
+        // 저장할 파일 명을 구성한다.
+        String saveFileName =
+            System.currentTimeMillis() + orgFileName;
+        try {
+            // 3. 임시 폴더에 저장된 업로드된 파일을 원하는곳에 원하는 이름으로 이동시키기(전송하기)
+            myFile.transferTo(new File(filePath + saveFileName));
+            System.out.println(filePath + saveFileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "file/upload";
+    }
+
+    // FileDto 에는 폼 전송된 title, myFile 정보가 들어 있다
+    @RequestMapping("/file/upload2")
+    public String upload2(FileDto dto, HttpServletRequest request) {
+        // FileDto 로 부터 업로드된 파일의 정보를 담고 있는 MultipartFile 객체의 참조값 얻어내기
+        MultipartFile myFile = dto.getMyFile();
+        // 1. 원본 파일명
+        String orgFileName = myFile.getOriginalFilename();
+        // 2. 파일의 크기
+        long fileSize = myFile.getSize();
+
+        // webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
+        String realPath = request.getServletContext().getRealPath("/upload");
         // 저장할 파일의 상세 경로
         String filePath = realPath + File.separator;
         // 디렉토리를 만들 파일 객체 생성

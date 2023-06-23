@@ -4,23 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class AcornController {
 
-    @RequestMapping("/test/friend")
-    public ModelAndView friends(ModelAndView mView) {
+    @RequestMapping( "/person/today" )
+    public String showPerson(HttpServletRequest request) {
+        String person="세종대왕";
 
-        List<String> names=new ArrayList<String>();
-        names.add("김구라");
-        names.add("해골");
-        names.add("원숭이");
+        request.setAttribute( "personToday" , person);
 
-        mView.addObject("names", names);
-        mView.setViewName( "/test/friend" );
-
-        return mView ;
+        return "person";
     }
 }

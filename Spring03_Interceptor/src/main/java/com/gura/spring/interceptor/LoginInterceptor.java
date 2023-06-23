@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             // GET 방식 전송 파라미터를 query 문자열로 읽어오기 ( a=xxx&b=xxx&c=xxx )
             String query = request.getQueryString();
             // 특수 문자는 인코딩을 해야한다.
-            String encodedUrl = null;
+            String encodedUrl;
             if (query == null) {// 전송 파라미터가 없다면
                 encodedUrl = URLEncoder.encode(url);
             } else {
