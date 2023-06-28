@@ -23,7 +23,7 @@
         SELECT *
         FROM (SELECT result1.*, ROWNUM AS rnum
         FROM (SELECT NUM, WRITER, TITLE, ORGFILENAME, SAVEFILENAME, FILESIZE, REGDATE
-        FROM board_file
+        FROM BOARD_FILE
         <choose>
             <when test="title != null and orgFileName != null">
                 WHERE TITLE LIKE '%'||#{title}||'%' OR ORGFILENAME LIKE '%'||#{orgFileName}||'%'
