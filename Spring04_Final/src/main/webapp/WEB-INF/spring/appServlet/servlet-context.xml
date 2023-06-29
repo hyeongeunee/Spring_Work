@@ -67,10 +67,19 @@
             <mvc:exclude-mapping path="/users/login"/>
             <beans:ref bean="loginInterceptor"/>
         </mvc:interceptor>
+
         <mvc:interceptor>
             <mvc:mapping path="/file/*"/>
             <mvc:exclude-mapping path="/file/list"/>
             <mvc:exclude-mapping path="/file/download"/>
+            <beans:ref bean="loginInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/cafe/*"/>
+            <mvc:exclude-mapping path="/cafe/list"/>
+            <mvc:exclude-mapping path="/cafe/detail"/>
+            <mvc:exclude-mapping path="/cafe/ajax_comment_list"/>
             <beans:ref bean="loginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
