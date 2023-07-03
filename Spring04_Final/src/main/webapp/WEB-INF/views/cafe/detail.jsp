@@ -168,7 +168,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
 <script>
 
-    //클라이언트가 로그인 했는지 여부
+    // 클라이언트가 로그인 했는지 여부
     let isLogin =${ not empty id };
 
     document.querySelector(".insert-form")
@@ -255,15 +255,16 @@
         }
     });
 
-    //인자로 전달되는 선택자를 이용해서 이벤트 리스너를 등록하는 함수
+    // 인자로 전달되는 선택자를 이용해서 이벤트 리스너를 등록하는 함수
     function addUpdateListener(sel) {
-        //댓글 수정 링크의 참조값을 배열에 담아오기
+        // 댓글 수정 링크의 참조값을 배열에 담아오기
         // sel 은  ".page-xxx  .update-link" 형식의 내용이다
         let updateLinks = document.querySelectorAll(sel);
         for (let i = 0; i < updateLinks.length; i++) {
             updateLinks[i].addEventListener("click", function () {
-                //click 이벤트가 일어난 바로 그 요소의 data-num 속성의 value 값을 읽어온다.
-                const num = this.getAttribute("data-num"); //댓글의 글번호
+                // click 이벤트가 일어난 바로 그 요소의 data-num 속성의 value 값을 읽어온다.
+                const num = this.getAttribute("data-num"); // 댓글의 글번호
+                // 숨겨진 댓글 수정폼을 보이도록 한다.
                 document.querySelector("#updateForm" + num).style.display = "block";
 
             });
@@ -344,10 +345,10 @@
         // 댓글 수정 폼의 참조값을 배열에 담아오기
         let updateForms = document.querySelectorAll(sel);
         for (let i = 0; i < updateForms.length; i++) {
-            //폼에 submit 이벤트가 일어 났을때 호출되는 함수 등록
+            //폼에 submit 이벤트가 일어 났을 때 호출되는 함수 등록
             updateForms[i].addEventListener("submit", function (e) {
                 //submit 이벤트가 일어난 form 의 참조값을 form 이라는 변수에 담기
-                const form = this;
+                const form = this; // this = e.target
                 //폼 제출을 막은 다음
                 e.preventDefault();
                 //이벤트가 일어난 폼을 ajax 전송하도록 한다.

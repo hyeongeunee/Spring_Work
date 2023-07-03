@@ -82,6 +82,13 @@
             <mvc:exclude-mapping path="/cafe/ajax_comment_list"/>
             <beans:ref bean="loginInterceptor"/>
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/gallery/*"/>
+            <mvc:exclude-mapping path="/gallery/list"/>
+            <mvc:exclude-mapping path="/gallery/detail"/>
+            <beans:ref bean="loginInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
