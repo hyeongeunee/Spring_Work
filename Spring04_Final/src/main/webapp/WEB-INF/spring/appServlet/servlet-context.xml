@@ -38,6 +38,7 @@
         <beans:constructor-arg name="sqlSessionFactory"
                                ref="sessionFactory"/>
     </beans:bean>
+
     <!--
         Multipart 폼 전송 처리를 위한 bean 설정
         최대 업로드 사이즈 제한하기
@@ -102,6 +103,7 @@
         0 순위로 찾아서 없으면
         views 폴더 안에서 jsp 페이지를 찾게 된다.
     -->
+
     <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
         <beans:property name="order" value="0"/>
     </beans:bean>

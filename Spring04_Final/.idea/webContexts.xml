@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cafe/ajax_comment_list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cafe" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gallery/upload_form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gallery" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/pwd_updateform.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/signup_form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users" />

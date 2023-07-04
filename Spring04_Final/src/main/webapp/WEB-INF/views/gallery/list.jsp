@@ -46,6 +46,7 @@
                fill - 부모의 크기에 딱 맞게, 비율 관계 없이 맞춘다.(이미지가 일그러질 수 있다.)
                scale-down - 가로, 세로 중에 큰 것을 부모의 크기에 맞춘 상태까지만 커지거나 작아지고, 비율은 일정하다.
             */
+            /*object-fit: cover;*/
             object-fit: cover;
         }
     </style>
@@ -53,6 +54,8 @@
 <body>
 <div class="container">
     <a href="${pageContext.request.contextPath}/gallery/upload_form">사진 업로드 하러 가기</a>
+    <a href="${pageContext.request.contextPath}/gallery/upload_form2">사진 업로드 하러 가기2</a>
+    <a href="${pageContext.request.contextPath}/gallery/upload_form3">사진 업로드 하러 가기3</a>
     <h1>겔러리 목록 입니다.</h1>
     <div class="row">
         <c:forEach var="tmp" items="${list }">

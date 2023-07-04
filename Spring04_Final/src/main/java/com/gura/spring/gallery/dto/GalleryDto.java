@@ -1,5 +1,7 @@
 package com.gura.spring.gallery.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class GalleryDto {
     private int num;
     private String writer;
@@ -10,6 +12,15 @@ public class GalleryDto {
     private int endRowNum;
     private int prevNum; // 이전 글의 글 번호
     private int nextNum; // 다음 글의 글 번호
+    private MultipartFile image; // 이미지 파일 업로드 처리를 위한 필드
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
 
     public int getStartRowNum() {
         return startRowNum;
@@ -83,9 +94,10 @@ public class GalleryDto {
         this.regdate = regdate;
     }
 
-    public GalleryDto(){}
+    public GalleryDto() {
+    }
 
-    public GalleryDto(int num, String writer, String caption, String imagePath, String regdate, int startRowNum, int endRowNum, int prevNum, int nextNum) {
+    public GalleryDto(int num, String writer, String caption, String imagePath, String regdate, int startRowNum, int endRowNum, int prevNum, int nextNum, MultipartFile image) {
         this.num = num;
         this.writer = writer;
         this.caption = caption;
@@ -95,5 +107,6 @@ public class GalleryDto {
         this.endRowNum = endRowNum;
         this.prevNum = prevNum;
         this.nextNum = nextNum;
+        this.image = image;
     }
 }

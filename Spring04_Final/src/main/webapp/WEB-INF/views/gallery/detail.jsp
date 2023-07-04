@@ -23,7 +23,7 @@
                 <a href="${pageContext.request.contextPath }/">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="${pageContext.request.contextPath }/gallery/list">겔러리 목록</a>
+                <a href="${pageContext.request.contextPath }/gallery/list">갤러리 목록</a>
             </li>
             <li class="breadcrumb-item active">상세보기</li>
         </ul>

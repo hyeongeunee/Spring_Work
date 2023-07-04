@@ -13,7 +13,7 @@
 </head>
 <body>
 <script>
-    alert("추가 되었습니다.");
+    alert("사진 업로드에 성공했습니다.");
     location.href = "${pageContext.request.contextPath}/gallery/list";
 </script>
 </body>

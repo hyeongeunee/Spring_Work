@@ -13,40 +13,41 @@
 <body>
 <div class="container">
     <h3>갤러리 업로드 폼입니다.</h3>
-    <form action="${pageContext.request.contextPath}/gallery/upload" method="post" enctype="multipart/form-data"
-          id="imageForm">
+    <form action="${pageContext.request.contextPath}/gallery/upload" method="post" enctype="multipart/form-data">
         <div>
             <label for="caption">사진 설명</label>
             <input type="text" name="caption" id="caption">
         </div>
         <div>
-            <label for="imageForm">사진</label>
-            <input type="file" name="image" id="image" accept=".jpg, .png, .gif"/>
+            <label for="image">이미지</label>
+            <input type="file" name="image" id="image" accept=".jpg, .png, .gif, .JPG, .JPEG, .jpeg"/>
         </div>
         <button type="submit">업로드</button>
     </form>
+    <br>
+    <img alt="미리보기" id="preview">
 </div>
 <script src="${pageContext.request.contextPath }/resources/js/gura_util.js"></script>
 <script>
-    document.querySelector("#image").addEventListener("change", function () {
-        const form = document.querySelector("#imageForm");
-        ajaxFormPromise(form)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                console.log(data);
-                // input name="profile" 요소의 value 값으로 이미지 경로 넣어주기
-                document.querySelector("input[name=image]").value = data.imagePath;
-                let img = `<img id="profileImage"
-					src="${pageContext.request.contextPath }\${data.imagePath}">`;
-                console.log("updateform :" + data.imagePath);
-                console.log("imgString :" + img);
-
-                //id 가 profileLink 인 요소의 내부(자식요소)에 덮어쓰기 하면서 html 형식으로 해석해 주세요 라는 의미
-                document.querySelector("#profileLink").innerHTML = img;
-            });
-    })
+    document.querySelector("#image").addEventListener("change", function (e) {
+        // 선택된 파일 객체를 얻어낸다.
+        const files = e.target.files;
+        // 만일 파일 데이터가 존재한다면
+        if (files.length > 0) {
+            // 파일로부터 데이터를 읽을 객체
+            const reader = new FileReader();
+            // 로딩이 완료(파일데이터를 모두 읽었을 때 )되었을 때 실행할 함수 등록
+            reader.onload = (event) => {
+                // 읽은 파일 데이터 얻어내기
+                const data = event.target.result;
+                //console.log(data);
+                // 이미지 요소에 data 를 src 속성의 value 로 넣기
+                document.querySelector("#preview").setAttribute("src", data);
+            };
+            // 파일을 DataURL 형식의 문자열로 읽기
+            reader.readAsDataURL(files[0]);
+        }
+    });
 </script>
 </body>
 </html>

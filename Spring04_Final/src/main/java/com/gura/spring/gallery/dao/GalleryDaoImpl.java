@@ -14,36 +14,43 @@ public class GalleryDaoImpl implements GalleryDao {
 
     @Override
     public List<GalleryDto> getList(GalleryDto dto) {
+        /*
+            Mapper's namespace : gallery
+            sql's id : getList
+            parameterType : GalleryDto
+            resultType : GalleryDto
+         */
         return session.selectList("gallery.getList", dto);
     }
 
     @Override
     public void insert(GalleryDto dto) {
+         /*
+            Mapper's namespace : gallery
+            sql's id : insert
+            parameterType : GalleryDto
+         */
         session.insert("gallery.insert", dto);
     }
 
     @Override
     public GalleryDto getData(int num) {
+         /*
+            Mapper's namespace : gallery
+            sql's id : getData
+            parameterType : GalleryDto
+            resultType : GalleryDto
+         */
         return session.selectOne("gallery.getData", num);
     }
 
     @Override
-    public GalleryDto getData(GalleryDto dto) {
-        return session.selectOne("gallery.getData2", dto);
-    }
-
-    @Override
-    public void delete(int num) {
-        session.delete("gallery.delete", num);
-    }
-
-    @Override
-    public void update(GalleryDto dto) {
-        session.update("gallery.update", dto);
-    }
-
-    @Override
     public int getCount(GalleryDto dto) {
+        /*
+            Mapper's namespace : gallery
+            sql's id : getCount
+            resultType : int
+         */
         return session.selectOne("gallery.getCount", dto);
     }
 }
