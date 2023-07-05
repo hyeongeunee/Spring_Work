@@ -15,21 +15,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <style>
-        /* card 이미지 부모요소의 높이 지정 */
+        /* card 이미지 부모 요소의 높이 지정 */
         .img-wrapper {
             height: 250px;
-            /* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
+            /* transform 을 적용할 때 0.3s 동안 순차적으로 적용하기 */
             transition: transform 0.3s ease-out;
         }
 
-        /* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
+        /* 화면의 폭이 576px 이하일 때 적용할 css */
+        @media (max-width: 576px) {
+            .img-wrapper {
+                height: 400px;
+            }
+        }
+
+        /* .img-wrapper 에 마우스가 hover 되었을 때 적용할 css */
         .img-wrapper:hover {
             /* 원본 크기의 1.1 배로 확대 시키기*/
             transform: scale(1.1);
         }
 
         .card .card-text {
-            /* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
+            /* 한줄만 text 가 나오고 한 줄 넘는 길이에 대해서는 ... 처리 하는 css */
             display: block;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -56,10 +63,11 @@
     <a href="${pageContext.request.contextPath}/gallery/upload_form">사진 업로드 하러 가기</a>
     <a href="${pageContext.request.contextPath}/gallery/upload_form2">사진 업로드 하러 가기2</a>
     <a href="${pageContext.request.contextPath}/gallery/upload_form3">사진 업로드 하러 가기3</a>
-    <h1>겔러리 목록 입니다.</h1>
+    <a href="${pageContext.request.contextPath}/gallery/upload_form4">사진 업로드 하러 가기4</a>
+    <h1>갤러리 목록 입니다.</h1>
     <div class="row">
         <c:forEach var="tmp" items="${list }">
-            <div class="col-6 col-md-4 col-lg-3">
+            <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card mb-3">
                     <a href="${pageContext.request.contextPath}/gallery/detail?num=${tmp.num}">
                         <div class="img-wrapper">

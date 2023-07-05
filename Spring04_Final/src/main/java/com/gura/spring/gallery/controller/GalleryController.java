@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class GalleryController {
@@ -36,6 +39,21 @@ public class GalleryController {
         return "gallery/upload_form3";
     }
 
+    @RequestMapping("/gallery/upload_form4")
+    public String uploadForm4() {
+        return "gallery/upload_form4";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/gallery/ajax_upload")
+    @ResponseBody
+    public Map<String, Object> ajaxUpload(GalleryDto dto, HttpServletRequest request) {
+        // 서비스를 이용해서 업로드된 이미지를 저장하고
+        service.saveImage(dto, request);
+        // {"isSuccess":true} 형식의 json 문자열 응답
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("isSuccess", true);
+        return map;
+    }
 
     @RequestMapping("/gallery/upload")
     public String upload(GalleryDto dto, HttpServletRequest request) {
